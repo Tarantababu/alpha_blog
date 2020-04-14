@@ -2,3 +2,6 @@
 
 <p><strong> Title: </stron> <%=@article.title%></p>
 <p><strong> Description: </strong> <%=@article.description%></p>
+<%= link_to 'Edit', edit_article_path(@article), method: :get %> |
+<%= link_to 'Delete', article_path(@article), method: :delete, data: { confirm: "Are you sure?"} %> |
+<%= link_to "Article's Listing", articles_path(@article), method: :get %>
