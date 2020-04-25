@@ -1,0 +1,31 @@
+
+    <h1 class="current-category text-center mt-4">Categories</h1>
+    <div class="container">
+      <% if @categories.count == 0 %>
+        <h4 class="text-center m-6">There are no categories currently saved for display.</h4>
+      <% else %>
+        <% @categories.each do |category| %>
+                <div class="row justify-content-md-center">
+                    <div class="col-8 mt-4">
+                        <div class="card text-center shadow mb-5 bg-white rounded">
+                          <div class="card-header font-italic">
+                            Blank
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title"><%= link_to category.name, category_path(category), class: "text-success", method: :get %></h5>
+                            <p class="card-text"><%= truncate(category.description, length: 100) %></p>
+                            <%= link_to "View", category_path(category), class: "btn btn-outline-success" %>
+                              <%= link_to "Edit", edit_category_path(category), class: "btn btn-outline-info" %>
+                              <%= link_to "Delete", category_path(category), method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-outline-danger" %>
+                          </div>
+                          <div class="card-footer text-muted">
+                            <small>created <%= time_ago_in_words(category.created_at) %> ago, updated <%= time_ago_in_words(category.updated_at) %> ago </small>
+                          </div>
+                        </div>  
+                    </div>
+                </div>
+        <% end %>
+      <% end %>  
+        <div class="row justify-content-md-center">
+        </div>
+    </div>

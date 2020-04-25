@@ -1,0 +1,6 @@
+class RemovePublicFromArticles < ActiveRecord::Migration[6.0]
+  def change
+
+    remove_column :articles, :public, :boolean
+  end
+end

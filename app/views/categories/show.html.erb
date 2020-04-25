@@ -1,0 +1,21 @@
+    <h1 class="text-center mt-4">Showing Category Details</h1>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-8 mt-4">
+                <div class="card text-center shadow mb-5 bg-white rounded">
+                  <div class="card-header font-italic">
+                    Boş.
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title"><%=@category.title%></h5>
+                    <p class="card-text"><%= simple_format(@category.description) %></p>
+                    <%= link_to "Edit", edit_article_path(@category), class: "btn btn-outline-info", method: :get %>
+                    <%= link_to "Delete", article_path(@category), method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-outline-danger" %>
+                  </div>
+                  <div class="card-footer text-muted">
+                    <small>created <%= time_ago_in_words(@category.created_at) %> ago, updated <%= time_ago_in_words(@category.updated_at) %> ago </small>
+                  </div>
+                </div>  
+            </div>
+        </div>
+    </div>

@@ -3,6 +3,11 @@
         <div class= "col-10">
             <%= render 'shared/errors' %>
             <%= form_with(model: @article, class: "shadow p-3 mb-3 bg-info rounded", local: true) do |f| %>
+                
+                <div class="form-group row justify-content-center dropdown col-7">
+                         <%= f.collection_select :category_id, Category.where(:user_id => current_user.id).order(:name),:id,:name, include_blank: false, class: "btn btn-secondary dropdown-toggle" %>
+                </div>
+                
                 <div class="form-group row">
                     <%= f.label :title, class: "col-2 col-form-label text-light" %>
                     <div class="col-10">
@@ -16,6 +21,19 @@
                         <%= f.text_area :description, rows: 10, class: "form-control shadow rounded", placeholder: "Description of Article" %>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <%= f.label :page_number, class: "col-2 col-form-label text-light" %>
+                    <div class="col-2 text-center">
+                        <%= f.text_field :page_number, class: "form-control shadow rounded"%>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center dropdown col-7">
+                    <div class="col-10">
+                        <%= f.label :public, class: "col-2 col-form-label text-light" %>
+                        <%= f.check_box :public, class: "form-check shadow rounded", placeholder: "Public" %>
+                    </div>
+                </div>
+
                 <div class="form-group row justify-content-center">
                     <%= f.submit class: "btn btn-outline-light btn-lg" %>
                 </div>

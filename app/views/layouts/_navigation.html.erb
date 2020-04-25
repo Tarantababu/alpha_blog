@@ -1,25 +1,52 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <%= link_to "Alpha Blog", root_path, class:"navbar-brand", id:"logo"  %>
+      <%= link_to "PTTT", root_path, class:"navbar-brand", id:"logo"  %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Article
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to "Article Listing", articles_path, class: "dropdown-item" %>
-              <div class="dropdown-divider"></div>
-              <%= link_to "Create New Article", new_article_path, class: "dropdown-item", method: :get %>
-            </div>
-          </li>
-        </ul>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <% if user_signed_in? %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Pieces Menu
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <%= link_to "All Pieces", articles_path, class: "dropdown-item" %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to "Create New Piece", new_article_path, class: "dropdown-item", method: :get %>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Categories
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <% Category.where(:user_id => current_user.id).each do |category| %>
+    							<li>
+    								<%= link_to category.name, articles_path(category: category.name), class: "dropdown-item" %>
+    							</li>
+    						<div class="dropdown-divider"></div>
+                  <%= link_to "Create New Category", new_category_path, class: "dropdown-item", method: :get %>
+    						<div class="dropdown-divider"></div>
+                  <%= link_to "All Categories", categories_path, class: "dropdown-item", method: :get %>
+    						<% end %>
+                </ul>
+              </li>
+              
+            <% end %>
+          </ul>
         <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <% if user_signed_in? %>
+            <div class="nav-item text-light m-2">
+              <%= current_user.email %>
+            </div>
+					  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger my-2 my-sm-0"%>
+				  <% else %>	
+				    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-success my-2 my-sm-0 m-2" %>
+					  <%= link_to "Log In", new_user_session_path, class: "btn btn-outline-primary my-2 my-sm-0"%>
+				  <% end %>
+
         </form>
       </div>
     </nav>
